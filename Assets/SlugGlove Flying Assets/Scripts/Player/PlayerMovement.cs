@@ -121,6 +121,20 @@ public class PlayerMovement : MonoBehaviour
         SetupCharacter();
     }
 
+    private void CheckState ()
+	{
+        switch (States)
+		{
+            case WorldState.Static:
+                //do nothing
+                break;
+            case WorldState.Grounded:
+                //move on ground
+                break;
+            //...
+		}
+	}
+
     private void Update()   //inputs and animation
     {
         //cannot function when dead
@@ -685,7 +699,7 @@ public class PlayerMovement : MonoBehaviour
         ZMove = ZMove * InvertY; //vertical inputs
 
         //get direction to move character
-        DownwardDirection = VehicleFlyingDownwardDirection(d, ZMove);
+        Vector3 DownwardDirection = VehicleFlyingDownwardDirection(d, ZMove);
         Vector3 SideDir = VehicleFlyingSideDirection(d, XMove);
         //get our rotation and adjustment speeds
         float rotSpd = FlyingRotationSpeed;
@@ -704,7 +718,7 @@ public class PlayerMovement : MonoBehaviour
             ActGravAmt = Mathf.Lerp(ActGravAmt, FlyingGravityAmt, FlyingGravBuildSpeed * 4f * d);
         else
             ActGravAmt = Mathf.Lerp(ActGravAmt, GlideGravityAmt, FlyingGravBuildSpeed * 0.5f * d);
- 
+
         targetVelocity -= Vector3.up * ActGravAmt;
         //lerp velocity
         Vector3 dir = Vector3.Lerp(Rigid.velocity, targetVelocity, d * FlyLerpSpd);
@@ -718,7 +732,7 @@ public class PlayerMovement : MonoBehaviour
         //up and down input = moving up and down (this effects our downward direction
         if (ZMove > 0.1) //upward tilt
         {
-            VD = Vector3.Lerp(VD, -transform.forward, d * (FlyingUpDownSpeed * ZMove));
+            VD = Vector3.Lerp(VD, -transform.forward, d * (FlyingUpDownSpeed * ZMove)); // time.deltaTime * 0.1 * vertical input
         }
         else if (ZMove < -.1) //downward tilt
         {

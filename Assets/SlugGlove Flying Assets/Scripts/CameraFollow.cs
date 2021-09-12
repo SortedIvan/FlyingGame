@@ -89,8 +89,8 @@ public class CameraFollow : MonoBehaviour
 
     public void Tick(float d)
     {
-        float h = Input.GetAxis("Mouse X");
-        float v = Input.GetAxis("Mouse Y");
+        float h = Input.GetAxis("Mouse_X");
+        float v = Input.GetAxis("Mouse_Y");
 
         //reset auto input timer
         if (h != 0 || v != 0)
