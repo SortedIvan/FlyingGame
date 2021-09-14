@@ -5,9 +5,6 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
 	PlayerControls playerControls;
-	PlayerLocomotion playerLocomotion;
-	AnimatorManager animatorManager;
-
 	public Vector2 movementInput;
 	public Vector2 cameraInput;
 
@@ -23,8 +20,7 @@ public class InputManager : MonoBehaviour
 
 	private void Awake() // get components
 	{
-		animatorManager = GetComponent<AnimatorManager>();
-		playerLocomotion = GetComponent<PlayerLocomotion>();
+		
 	}
 
 	private void OnEnable() 
@@ -52,8 +48,6 @@ public class InputManager : MonoBehaviour
 	public void HandleAllInputs()
 	{
 		HandleMovementInput();
-		HandleSprintingInput();
-		HandleJumpingInput();
 		//HandleFlyingInput();
 	}
 
@@ -66,38 +60,9 @@ public class InputManager : MonoBehaviour
 		cameraInputY = cameraInput.y;
 
 		moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
-		animatorManager.UpdateAnimatorValues(0, moveAmount, playerLocomotion.isSprinting);
+		
 	}
 
-	private void HandleSprintingInput()
-	{
-		if (playerLocomotion.isGrounded)
-		{
-			if (b_input && moveAmount > 0.5f)
-			{
-				playerLocomotion.isSprinting = true;
-			}
-			else
-			{
-				playerLocomotion.isSprinting = false;
-			}
-		}
-	}
 
-	private void HandleJumpingInput()
-	{
-		if (jump_input)
-		{
-			jump_input = false;
-			if (playerLocomotion.isGrounded)
-			{
-				playerLocomotion.HandleJumping();
-			}
-			else if (!playerLocomotion.isGrounded)
-			{
-				if (playerLocomotion.isFlying) playerLocomotion.flap = true;
-				playerLocomotion.isFlying = true;
-			}
-		}
-	}
+
 }
