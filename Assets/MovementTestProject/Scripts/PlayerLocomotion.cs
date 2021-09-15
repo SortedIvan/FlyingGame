@@ -170,7 +170,7 @@ public class PlayerLocomotion : MonoBehaviour
 		{
 			if (!playerManager.isInteracting)
 			{
-				animatorManager.PlayTargetAnimation("Falling", true);
+				animatorManager.PlayTargetAnimation("Falling");
 			}
 
 			inAirTimer = inAirTimer + Time.deltaTime;
@@ -182,11 +182,11 @@ public class PlayerLocomotion : MonoBehaviour
 		{
 			if (!isGrounded && playerManager.isInteracting && !isFlying)
 			{
-				animatorManager.PlayTargetAnimation("Land", true); // play landing animation
+				animatorManager.PlayTargetAnimation("Land"); // play landing animation
 			}
 			else if (!isGrounded && !playerManager.isInteracting && isFlying)
 			{
-				animatorManager.PlayTargetAnimation("Land", true); // play landing animation
+				animatorManager.PlayTargetAnimation("Land"); // play landing animation
 			}
 			else if (isGrounded && playerManager.isInteracting) // rotate landing animation upwards
 			{
@@ -234,7 +234,7 @@ public class PlayerLocomotion : MonoBehaviour
 		if (isGrounded && !playerManager.isInteracting)
 		{
 			animatorManager.animator.SetBool("isJumping", true);
-			animatorManager.PlayTargetAnimation("Jump", false);
+			animatorManager.PlayTargetAnimation("Jump");
 
 			float jumpingVelocity = Mathf.Sqrt(-2 * gravityIntensity * jumpHeight);
 			Vector3 playerVelocity = moveDirection;
@@ -260,7 +260,7 @@ public class PlayerLocomotion : MonoBehaviour
 		
 		if (!playerManager.isFlying) // paste elsewhere ?
 		{
-			animatorManager.PlayTargetAnimation("Fly", false);
+			animatorManager.PlayTargetAnimation("Fly");
 			animatorManager.animator.SetBool("isFlying",  true);
 		}
 

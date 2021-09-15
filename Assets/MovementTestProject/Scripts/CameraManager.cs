@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
 	InputManager inputManager;
-	PlayerLocomotion playerLocomotion;
+	StateManager stateManager;
 
 	public Transform targetTransform; // camera follow object
 	public Transform cameraPivot; // object that camera pivots
@@ -30,8 +30,8 @@ public class CameraManager : MonoBehaviour
 	private void Awake()
 	{
 		inputManager = FindObjectOfType<InputManager>();
-		playerLocomotion = FindObjectOfType<PlayerLocomotion>();
-		targetTransform = FindObjectOfType<PlayerManager>().transform;
+		stateManager = FindObjectOfType<StateManager>();
+		targetTransform = FindObjectOfType<StateManager>().transform;
 		cameraTransform = Camera.main.transform;
 		defaultPosition = cameraTransform.localPosition.z;
 	}
@@ -57,12 +57,12 @@ public class CameraManager : MonoBehaviour
 
 		pivotAngle = pivotAngle - (inputManager.cameraInputY * cameraPivotSpeed); // vertical
 
-		if (!playerLocomotion.isFlying) // grounded camera controls
+		if (!stateManager.isFlying) // grounded camera controls
 		{
 			lookAngle = lookAngle + (inputManager.cameraInputX * cameraLookSpeed); // horizontal
 			pivotAngle = Mathf.Clamp(pivotAngle, minimumPivotAngle, maximumPivotAngle);
 		}
-		else if (playerLocomotion.isFlying) 
+		else if (stateManager.isFlying) 
 		{
 			//if (Vector3.Dot(cameraTransform.up, Vector3.down) > 0) // invert left right when camera is upside down
 			//{

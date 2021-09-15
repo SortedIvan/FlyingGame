@@ -13641,7 +13641,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1414679552}
   - component: {fileID: 1414679553}
-  - component: {fileID: 1414679557}
   - component: {fileID: 1414679556}
   - component: {fileID: 1414679555}
   - component: {fileID: 1414679554}
@@ -13729,58 +13728,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1414679551}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c9962bdb167494bafd7c668fb07ec6, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f820d23d458c11468d4096b0110883d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFlying: 0
-  flap: 0
-  actualFlySpeed: 0
-  flapStrength: 2
-  flySpeed: 15
-  flyAccel: 2
-  rigidVelocity: 0
-  flyLowLimit: -1
-  flyHighLimit: 1
-  flyVelocityGain: 2
-  flyVelocityLoss: 1
-  flyMaxSpeed: 70
-  flyMinSpeed: 5
-  flyRotationSpeed: 4
-  flyInputRotationSpeed: 2
-  flyAdjustmentSpeed: 4
-  flyAdjustmentLerp: 0
-  glideGravityAmount: 5
-  flyGravityBuildSpeed: 3
-  inAirTimer: 0
-  leapingVelocity: 2
-  fallingVelocity: 3
-  rayCastHeightOffset: 0.5
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  isSprinting: 0
-  isGrounded: 1
-  isJumping: 0
-  walkingSpeed: 1.5
-  runningSpeed: 4
-  sprintingSpeed: 6
-  rotationSpeed: 8
-  jumpHeight: 2
-  gravityIntensity: -15
---- !u!114 &1414679557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1414679551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6fabbabd68ad114d9ab7690d0cef08a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isInteracting: 0
-  isFlying: 0
+  inputManager: {fileID: 0}
+  animatorManager: {fileID: 0}
+  cameraObject: {fileID: 0}
+  playerRigidbody: {fileID: 0}
 --- !u!114 &1414679558
 MonoBehaviour:
   m_ObjectHideFlags: 0

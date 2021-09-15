@@ -5,6 +5,8 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
 	PlayerControls playerControls;
+	AnimatorManager animatorManager;
+
 	public Vector2 movementInput;
 	public Vector2 cameraInput;
 
@@ -20,7 +22,7 @@ public class InputManager : MonoBehaviour
 
 	private void Awake() // get components
 	{
-		
+		animatorManager = GetComponent<AnimatorManager>();
 	}
 
 	private void OnEnable() 
@@ -48,7 +50,7 @@ public class InputManager : MonoBehaviour
 	public void HandleAllInputs()
 	{
 		HandleMovementInput();
-		//HandleFlyingInput();
+
 	}
 
 	private void HandleMovementInput()
@@ -60,7 +62,6 @@ public class InputManager : MonoBehaviour
 		cameraInputY = cameraInput.y;
 
 		moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
-		
 	}
 
 

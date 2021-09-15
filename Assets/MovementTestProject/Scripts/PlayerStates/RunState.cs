@@ -14,7 +14,7 @@ public class RunState : PlayerBaseState
         throw new System.NotImplementedException();
     }
 
-    public override void UpdateState(StateManager stateManager, InputManager inputManager)
+    public override void UpdateState(StateManager stateManager)
     {
         throw new System.NotImplementedException();
     }

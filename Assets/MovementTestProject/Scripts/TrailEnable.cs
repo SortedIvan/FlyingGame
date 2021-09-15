@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class TrailEnable : MonoBehaviour
 {
-	PlayerLocomotion playerLocomotion;
+	StateManager stateManager;
 	TrailRenderer trail;
 
 	void Awake()
 	{
 		trail = GetComponent<TrailRenderer>();
-		playerLocomotion = FindObjectOfType<PlayerLocomotion>();
+		stateManager = FindObjectOfType<StateManager>();
 	}
 
 	void Update()
 	{
-		if (playerLocomotion.isFlying)
+		if (stateManager.isFlying)
 		{
 			trail.enabled = true;
 		}
