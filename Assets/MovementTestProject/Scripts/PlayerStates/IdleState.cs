@@ -9,7 +9,7 @@ public class IdleState : PlayerBaseState
 
     public override void EnterState(StateManager stateManager)
     {
-        stateManager.currentState = "idle";
+        stateManager.currentStateVisual = "idle";
 
         animatorManager = stateManager.animatorManager;
         inputManager = stateManager.inputManager;
@@ -22,11 +22,12 @@ public class IdleState : PlayerBaseState
 
     public override void UpdateState(StateManager stateManager)
     {
-
         animatorManager.UpdateAnimatorValues(0, 0, false); // updates animator boolean, false for no sprinting
+        stateManager.transform.position = stateManager.targetPosition;
+  
 
-		#region State switch
-		if (inputManager.moveAmount > 0.05)
+        #region State switch
+        if (inputManager.moveAmount > 0.05)
         {
             Debug.Log("I am switching to walkState");
             stateManager.SwitchState(stateManager.walkState);

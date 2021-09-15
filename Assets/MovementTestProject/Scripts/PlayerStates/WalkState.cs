@@ -6,9 +6,7 @@ public class WalkState : PlayerBaseState
 {
     AnimatorManager animatorManager;
     InputManager inputManager;
-
-    Vector3 moveDirection;
-    Transform cameraObject;
+	Transform cameraObject;
 	Transform cameraManagerObject;
 	Rigidbody playerRigidbody;
 
@@ -21,7 +19,7 @@ public class WalkState : PlayerBaseState
 		cameraManagerObject = stateManager.cameraManagerObject;
         playerRigidbody = stateManager.playerRigidbody;
 
-		stateManager.currentState = "walk";
+		stateManager.currentStateVisual = "walk";
 	}
 
     public override void OnCollisionEnter(StateManager stateManager)
@@ -32,21 +30,22 @@ public class WalkState : PlayerBaseState
     public override void UpdateState(StateManager stateManager)
     {
 		#region Velocity
-		moveDirection = cameraManagerObject.forward * inputManager.verticalInput;
-		moveDirection = moveDirection + cameraObject.right * inputManager.horizontalInput;
-		moveDirection.Normalize();
-		moveDirection.y = 0;
+	
+		stateManager.moveDirection = cameraManagerObject.forward * inputManager.verticalInput;
+		stateManager.moveDirection = stateManager.moveDirection + cameraObject.right * inputManager.horizontalInput;
+		stateManager.moveDirection.Normalize();
+		stateManager.moveDirection.y = 0;
 
 		if (inputManager.moveAmount >= 0.5f)
 		{
-			moveDirection = moveDirection * 4; // run speed
+			stateManager.moveDirection = stateManager.moveDirection * 4; // run speed
 		}
 		else
 		{
-			moveDirection = moveDirection * 2; // walk speed
+			stateManager.moveDirection = stateManager.moveDirection * 2; // walk speed
 		}
 
-		if (moveDirection == Vector3.zero)
+		if (stateManager.moveDirection == Vector3.zero)
 		{
 			// ASK IF THIS STOPS RUNNING CODE BELOW STATE SWITCH LINE? PLS ANSVVER
 			stateManager.SwitchState(stateManager.idleState);
@@ -54,7 +53,7 @@ public class WalkState : PlayerBaseState
 		}
 
 
-		Vector3 movementVelocity = moveDirection;
+		Vector3 movementVelocity = stateManager.moveDirection;
 		playerRigidbody.velocity = movementVelocity;
 		#endregion
 		#region Rotation

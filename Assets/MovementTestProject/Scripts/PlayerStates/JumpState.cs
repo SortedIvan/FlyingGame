@@ -10,7 +10,7 @@ public class JumpState : PlayerBaseState
 
     public override void EnterState(StateManager stateManager)
     {
-        stateManager.currentState = "jump";
+        stateManager.currentStateVisual = "jump";
 
         inputManager = stateManager.inputManager;
         animatorManager = stateManager.animatorManager;

@@ -6,12 +6,12 @@ public class StateManager : MonoBehaviour
 {
     #region Stats
     [Header("Stats")]
-    public string currentState;
+    public string currentStateVisual;
 
     [Header("Booleans")]
-    public bool isGrounded;
     public bool isJumping;
     public bool isFlying;
+    public bool isGrounded;
 
     [Header("Other")]
     public LayerMask groundCheckLayer;
@@ -30,11 +30,15 @@ public class StateManager : MonoBehaviour
 
     // rigidbody
     public Rigidbody playerRigidbody;
+    public RaycastHit hit;
+    public Vector3 rayCastOrigin;
+    public Vector3 targetPosition;
+    public Vector3 moveDirection;
+    
+    #endregion
 
-	#endregion
-
-	#region States
-	PlayerBaseState currentPlayerState; // Holds an instance of what state a player is currently in.
+    #region States
+    PlayerBaseState currentPlayerState; // Holds an instance of what state a player is currently in.
     public IdleState idleState = new IdleState();
     public WalkState walkState = new WalkState();
     public RunState runState = new RunState();
@@ -46,6 +50,7 @@ public class StateManager : MonoBehaviour
 
 	private void Awake() // get components on awake
     {
+        targetPosition = transform.position;
         animatorManager = GetComponent<AnimatorManager>();
         inputManager = GetComponent<InputManager>();
         cameraManager = GameObject.Find("Camera Manager").GetComponent<CameraManager>();
@@ -64,12 +69,18 @@ public class StateManager : MonoBehaviour
 
     void Update() // input code in uptade
     {
+        
         inputManager.HandleAllInputs();
     }
 
 	private void FixedUpdate() // movement code in fixed update
 	{
+        
         currentPlayerState.UpdateState(this);
+        targetPosition = transform.position;
+        rayCastOrigin = targetPosition;
+        rayCastOrigin.y = rayCastOrigin.y + 0.5f;
+        isGrounded = SphereCastCheck();
     }
 
 	private void LateUpdate() // camera movement, rotation
@@ -89,5 +100,24 @@ public class StateManager : MonoBehaviour
     {
         currentPlayerState.OnCollisionEnter(this);
     }
+
+    public bool SphereCastCheck()
+    {
+
+        if (Physics.SphereCast(rayCastOrigin, 0.2f, -Vector3.up, out hit, 1f, groundCheckLayer)) // if on ground
+        {
+            Vector3 rayCastHitPoint = hit.point;
+            targetPosition.y = rayCastHitPoint.y;
+            return true;
+
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+
 
 }
